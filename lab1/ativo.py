@@ -3,7 +3,7 @@
 import socket
 
 HOST = '' # maquina onde esta o par passivo
-PORTA = 10000        # porta que o par passivo esta escutando
+PORTA = 5000        # porta que o par passivo esta escutando
 
 # cria socket
 sock = socket.socket() # default: socket.AF_INET, socket.SOCK_STREAM 
