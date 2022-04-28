@@ -1,6 +1,7 @@
 # Exemplo basico socket (lado ativo)
 
 import socket
+import pickle
 
 HOST = ''
 PORTA = 5000
@@ -9,14 +10,14 @@ PORTA = 5000
 sock = socket.socket() 
 
 # Conectar com o servidor
-sock.connect((HOST, PORTA)) 
-
+sock.connect((HOST, PORTA))
 
 msg = input("Insira o nome do arquivo: \n")
-sock.send(bytes(msg , 'utf-8'))
-msg = sock.recv(1024) 
+sock.send(pickle.dumps(msg))
+msg = sock.recv(1024)
+msg = pickle.loads(msg) 
     
-print(str(msg,  encoding='utf-8'))
+print(msg)
 
 # Encerrar a conexão
 sock.close

@@ -1,5 +1,6 @@
 import os
 import socket
+import pickle
 
 
 def acharPalavras(nome_arq):
@@ -29,8 +30,8 @@ def acharPalavras(nome_arq):
 
         for palavra, cont in quantPalavra.items():
             if cont > quantMaiorPalavra:
-                maiorPalavra = cont
-                quantMaiorPalavra = palavra
+                maiorPalavra = palavra
+                quantMaiorPalavra = cont
 
         palavras_freq.append(maiorPalavra)
         del quantPalavra[maiorPalavra] 
@@ -54,10 +55,10 @@ while True:
     novoSock, endereco = sock.accept() # Retornar um novo socket e o endereco do par conectado
     print ('Conectado com: ', endereco)
 # Esperar uma mensagem
-    msg = novoSock.recv(1024) 
-    envio = bytes(acharPalavras(str(msg,encoding='utf8')),encoding='utf8')
+    msg = pickle.loads(novoSock.recv(1024)) 
+    envio = acharPalavras(msg)
     print(str(envio))
-    novoSock.send(envio)
+    novoSock.send(pickle.dumps(envio))
 
     # Fechar o socket
     novoSock.close()
